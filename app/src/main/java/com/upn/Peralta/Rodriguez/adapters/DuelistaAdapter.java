@@ -1,8 +1,10 @@
 package com.upn.Peralta.Rodriguez.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +31,9 @@ public class DuelistaAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        TextView tvNombre = holder.itemView.findViewById(R.id.txtShowDuelistName);
+        tvNombre.setText(datos.get(position).nombre);
+        Log.i("MAIN_APP", datos.get(position).nombre);
     }
 
     @Override

@@ -14,7 +14,6 @@ import com.upn.Peralta.Rodriguez.entities.Duelista;
 @Database(entities = {Duelista.class, Carta.class}, version = 1)
 public abstract class ConfigDB extends RoomDatabase {
     public abstract DuelistaDao duelistaDao();
-    public abstract CartaDao cartaDao();
 
     public static ConfigDB getInstance(Context context){
         return Room.databaseBuilder(context, ConfigDB.class, "AppDataBase")

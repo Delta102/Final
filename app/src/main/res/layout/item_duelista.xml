@@ -12,15 +12,9 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtNameRegister"
+            android:id="@+id/txtShowDuelistName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/txtMount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
         <Button
             android:id="@+id/btnCreateCarta"

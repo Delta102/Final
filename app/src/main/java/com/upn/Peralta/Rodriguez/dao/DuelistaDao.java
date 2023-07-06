@@ -17,6 +17,6 @@ public interface DuelistaDao {
     List<Duelista> listarDuelistas();
 
     @Query("DELETE FROM Duelistas")
-    void deleteAccounts();
+    void deleteAllDuelists();
 
 }
