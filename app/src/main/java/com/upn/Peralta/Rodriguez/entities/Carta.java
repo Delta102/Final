@@ -3,7 +3,7 @@ package com.upn.Peralta.Rodriguez.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Duelistas")
+@Entity(tableName = "Cartas")
 public class Carta {
     @PrimaryKey(autoGenerate = true)
     public int idCarta;

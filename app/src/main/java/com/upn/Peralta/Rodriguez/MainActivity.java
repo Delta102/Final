@@ -24,5 +24,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getApplicationContext(), MostrarDuelistasActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
