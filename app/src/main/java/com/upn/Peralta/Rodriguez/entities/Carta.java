@@ -39,10 +39,10 @@ public class Carta implements Parcelable {
         idDuelista = in.readInt();
         nombreCarta = in.readString();
         imagen = in.readString();
-        ptosAtaque = Integer.parseInt(in.readString());
-        ptosDefensa = Integer.parseInt(in.readString());
-        latitud = Double.parseDouble(in.readString());
-        longitud = Double.parseDouble(in.readString());
+        ptosAtaque = in.readInt();
+        ptosDefensa = in.readInt();
+        latitud = in.readDouble();
+        longitud = in.readDouble();
     }
     public static final Creator<Carta> CREATOR = new Creator<Carta>() {
         @Override

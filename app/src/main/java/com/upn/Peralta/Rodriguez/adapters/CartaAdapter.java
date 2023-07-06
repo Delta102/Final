@@ -43,7 +43,7 @@ public class CartaAdapter extends RecyclerView.Adapter{
 
         tvNombre.setText("Nombre: "+ cartas.nombreCarta);
         txtAtaque.setText("Ataque: "+ String.valueOf(cartas.ptosAtaque));
-        txtAtaque.setText("Defensa: "+ String.valueOf(cartas.ptosDefensa));
+        txtDefensa.setText("Defensa: "+ String.valueOf(cartas.idDuelista));
 
     }
 
