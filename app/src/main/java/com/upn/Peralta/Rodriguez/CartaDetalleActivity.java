@@ -43,7 +43,10 @@ public class CartaDetalleActivity extends AppCompatActivity {
 
         idDuelista = getIntent().getIntExtra("idDuelista", -1);
 
+        Log.i("MAIN_APP", "id "+ idDuelista);
+
         if (hayConexionInternet()) {
+            // Si hay conexión a internet, realizar sincronización de datos
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://63023858c6dda4f287b57c96.mockapi.io/")
                     .addConverterFactory(GsonConverterFactory.create())
@@ -77,7 +80,7 @@ public class CartaDetalleActivity extends AppCompatActivity {
                         Log.e("CARTA_DETALLE", "La respuesta no contiene datos");
                     }
                 } else {
-                    Log.e("CARTA_DETALLE", "Error en la respuesta: ");
+                    Log.e("CARTA_DETALLE", "Error en la respuesta: " + response.message());
                 }
             }
 
@@ -97,20 +100,9 @@ public class CartaDetalleActivity extends AppCompatActivity {
     }
 
     private void mostrarCartas(List<Carta> cartas) {
-        List<Carta> cartasFiltradas = filtrarCartasPorIdDuelista(cartas, idDuelista);
-        this.cartas = cartasFiltradas;
-        cartaAdapter = new CartaAdapter(cartasFiltradas);
+        this.cartas = cartas;
+        cartaAdapter = new CartaAdapter(cartas);
         rvCartas.setAdapter(cartaAdapter);
-    }
-
-    private List<Carta> filtrarCartasPorIdDuelista(List<Carta> cartas, int idDuelista) {
-        List<Carta> cartasFiltradas = new ArrayList<>();
-        for (Carta carta : cartas) {
-            if (carta.idDuelista == idDuelista) {
-                cartasFiltradas.add(carta);
-            }
-        }
-        return cartasFiltradas;
     }
 
     private boolean hayConexionInternet() {
