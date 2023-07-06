@@ -1,6 +1,7 @@
 package com.upn.Peralta.Rodriguez.services;
 
 import com.google.gson.annotations.SerializedName;
+import com.upn.Peralta.Rodriguez.entities.Carta;
 import com.upn.Peralta.Rodriguez.entities.Duelista;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public interface DuelistaService {
     Call<List<Duelista>> getAllDuelists();
     @POST("Duelista")
     Call<Void> createDuelist(@Body Duelista duelista);
+
+    @POST("Carta")
+    Call<Void> createCart(@Body Carta carta);
 
     @POST("image")
     Call<ImageResponse> subirImagen(@Body ImageToSave image);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.upn.Peralta.Rodriguez.CartaDetalleActivity;
 import com.upn.Peralta.Rodriguez.CreateCartaActivity;
 import com.upn.Peralta.Rodriguez.MostrarDuelistasActivity;
 import com.upn.Peralta.Rodriguez.R;
@@ -38,12 +39,22 @@ public class DuelistaAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TextView tvNombre = holder.itemView.findViewById(R.id.txtShowDuelistName);
         Button btnCreateCart = holder.itemView.findViewById(R.id.btnCreateCarta);
+        Button btnShowCart = holder.itemView.findViewById(R.id.btnVerCartas);
         tvNombre.setText(datos.get(position).nombre);
 
         btnCreateCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CreateCartaActivity.class);
+                intent.putExtra("idDuelista", datos.get(position).id);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        btnShowCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CartaDetalleActivity.class);
                 intent.putExtra("idDuelista", datos.get(position).id);
                 v.getContext().startActivity(intent);
             }

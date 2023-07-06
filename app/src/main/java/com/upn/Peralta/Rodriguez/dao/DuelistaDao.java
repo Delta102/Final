@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.upn.Peralta.Rodriguez.entities.Carta;
 import com.upn.Peralta.Rodriguez.entities.Duelista;
 
 import java.util.List;
@@ -12,6 +13,9 @@ public interface DuelistaDao {
 
     @Insert
     void createDuelist(Duelista duelista);
+
+    @Insert
+    void createCart(Carta carta);
 
     @Query("SELECT * FROM Duelistas")
     List<Duelista> listarDuelistas();

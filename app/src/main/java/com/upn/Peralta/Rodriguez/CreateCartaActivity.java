@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.upn.Peralta.Rodriguez.entities.Carta;
-import com.upn.Peralta.Rodriguez.entities.Duelista;
 import com.upn.Peralta.Rodriguez.services.DuelistaService;
 
 import java.io.ByteArrayOutputStream;
@@ -40,6 +39,7 @@ public class CreateCartaActivity extends AppCompatActivity {
 
     LocationManager locationManager;
     double latitud, longitud;
+    int idDuelista;
 
     private static final int OPEN_CAMERA_REQUEST = 1001;
     private static final int LOCATION_PERMISSION_REQUEST = 1003;
@@ -53,7 +53,7 @@ public class CreateCartaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_carta);
 
-        int idDuelista = getIntent().getIntExtra("idDuelista", -1);
+        idDuelista = getIntent().getIntExtra("idDuelista", -1);
 
         Button btnOpenGallery = findViewById(R.id.btnOpenGallery);
         Button btnRegister = findViewById(R.id.btnRegistro);
@@ -129,7 +129,9 @@ public class CreateCartaActivity extends AppCompatActivity {
     }
 
     void registrarCarta() {
-        EditText txtName = findViewById(R.id.txtNameDuelistRegister);
+        EditText txtName = findViewById(R.id.txtCartName);
+        EditText txtAttack = findViewById(R.id.txtAttack);
+        EditText txtDefense = findViewById(R.id.txtDefense);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://63023858c6dda4f287b57c96.mockapi.io/")
@@ -139,18 +141,23 @@ public class CreateCartaActivity extends AppCompatActivity {
         DuelistaService servicio = retrofit.create(DuelistaService.class);
 
         Carta carta = new Carta();
-        carta.imagen = url;
         carta.nombreCarta = txtName.getText().toString();
+        carta.ptosAtaque = Integer.parseInt(txtAttack.getText().toString());
+        carta.ptosDefensa = Integer.parseInt(txtDefense.getText().toString());
+        carta.imagen = url;
         carta.latitud = latitud;
         carta.longitud = longitud;
+        carta.idDuelista = idDuelista;
 
-        Call<Void> call = servicio.();
+
+
+        Call<Void> call = servicio.createCart(carta);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Log.i("MAIN_APP", "Se creó");
-                    Intent intent = new Intent(.this, MainActivity.class);
+                    Intent intent = new Intent(CreateCartaActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -160,9 +167,6 @@ public class CreateCartaActivity extends AppCompatActivity {
                 Log.i("MAIN_APP", "No sirve");
             }
         });
-
-        Intent intent = new Intent(.this, MainActivity.class);
-        startActivity(intent);
     }
 
     String convertirBitmapB64(Bitmap bitmap) {
