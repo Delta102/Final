@@ -11,7 +11,7 @@ public class Carta {
     public int ptosAtaque;
     public int ptosDefensa;
     public String imagen;
-    public float latitud;
-    public float longitud;
+    public double latitud;
+    public double longitud;
     public int idDuelista;
 }

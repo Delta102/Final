@@ -1,5 +1,6 @@
 package com.upn.Peralta.Rodriguez.services;
 
+import com.google.gson.annotations.SerializedName;
 import com.upn.Peralta.Rodriguez.entities.Duelista;
 
 import java.util.List;
@@ -14,4 +15,24 @@ public interface DuelistaService {
     Call<List<Duelista>> getAllDuelists();
     @POST("Duelista")
     Call<Void> createDuelist(@Body Duelista duelista);
+
+    @POST("image")
+    Call<ImageResponse> subirImagen(@Body ImageToSave image);
+
+    class ImageResponse{
+        @SerializedName("url")
+        private String url;
+
+        public String getUrl(){
+            return url;
+        }
+    }
+
+    class ImageToSave{
+        String base64Image;
+
+        public ImageToSave(String base64Image){
+            this.base64Image = base64Image;
+        }
+    }
 }
