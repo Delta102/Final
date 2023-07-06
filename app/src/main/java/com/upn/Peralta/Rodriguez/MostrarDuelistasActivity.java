@@ -38,7 +38,7 @@ public class MostrarDuelistasActivity extends AppCompatActivity {
         if (duelistas != null) {
             Log.i("MAIN_APP", "Hay: " + duelistas.size());
             rvDuelistas.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            rvDuelistas.setAdapter(new DuelistaAdapter(duelistas));
+            rvDuelistas.setAdapter(new DuelistaAdapter(duelistas, getApplicationContext()));
         } else {
             Log.e("MAIN_APP", "La lista de duelistas es nula");
         }

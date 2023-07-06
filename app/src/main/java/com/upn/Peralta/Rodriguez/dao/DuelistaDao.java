@@ -14,13 +14,21 @@ public interface DuelistaDao {
     @Insert
     void createDuelist(Duelista duelista);
 
-    @Insert
-    void createCart(Carta carta);
-
     @Query("SELECT * FROM Duelistas")
     List<Duelista> listarDuelistas();
 
     @Query("DELETE FROM Duelistas")
     void deleteAllDuelists();
+
+    @Insert
+    void createCart(Carta carta);
+
+    @Query("SELECT * FROM Cartas")
+    List<Carta> getAllCarts();
+    @Query("SELECT * FROM Cartas WHERE idDuelista = :idDuelista")
+    List<Carta> getCartasByDuelistaId(int idDuelista);
+
+    @Query("DELETE FROM Cartas")
+    void deleteAllCarts();
 
 }
