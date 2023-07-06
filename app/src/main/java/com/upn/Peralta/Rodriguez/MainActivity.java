@@ -3,18 +3,27 @@ package com.upn.Peralta.Rodriguez;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.upn.Peralta.Rodriguez.adapters.DuelistaAdapter;
+import com.upn.Peralta.Rodriguez.database.ConfigDB;
 import com.upn.Peralta.Rodriguez.entities.Duelista;
 import com.upn.Peralta.Rodriguez.services.DuelistaService;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -52,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
                     Call<List<Duelista>> call = service.getAllDuelists();
 
                     sincronizacionData(call);
+                } else {
+                    // Si no hay conexión a internet, cargar los datos almacenados en la base de datos local
+                    ConfigDB db = ConfigDB.getInstance(MainActivity.this);
+                    List<Duelista> duelistas = db.duelistaDao().listarDuelistas();
+                    mostrarDuelistas(duelistas);
                 }
-                List<Duelista> duelistas = db.duelistaDao().listarDuelistas();
-                rvDuelistas.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                rvDuelistas.setAdapter(new DuelistaAdapter(duelistas));
             }
         });
     }
@@ -84,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("MAIN_APP", "La respuesta no contiene datos");
                     }
                 } else {
-                    Log.e("MAIN_APP", "Error en la respuesta: " + response.code());
+                    Log.e("MAIN_APP", "Error en la respuesta: ");
                 }
             }
 
@@ -97,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     void mostrarDuelistas(List<Duelista> duelistas) {
         intent = new Intent(getApplicationContext(), MostrarDuelistasActivity.class);
-        intent.putParcelableArrayListExtra("duelistas", new ArrayList<>(duelistas));
+        intent.putExtra("duelistas", (ArrayList<Duelista>) duelistas);
         startActivity(intent);
     }
 }
