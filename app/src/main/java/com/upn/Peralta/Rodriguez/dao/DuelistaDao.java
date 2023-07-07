@@ -31,4 +31,7 @@ public interface DuelistaDao {
     @Query("DELETE FROM Cartas")
     void deleteAllCarts();
 
+    @Query("SELECT MAX(id) FROM Duelistas")
+    int obtenerUltimoId();
+
 }

@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.upn.Peralta.Rodriguez.CartaDetalleActivity;
 import com.upn.Peralta.Rodriguez.R;
 import com.upn.Peralta.Rodriguez.entities.Carta;
@@ -40,10 +42,12 @@ public class CartaAdapter extends RecyclerView.Adapter{
         TextView tvNombre = holder.itemView.findViewById(R.id.txtNameCart);
         TextView txtAtaque = holder.itemView.findViewById(R.id.txtPtA);
         TextView txtDefensa = holder.itemView.findViewById(R.id.txtPtD);
+        ImageView foto = holder.itemView.findViewById(R.id.imgFoto);
 
         tvNombre.setText("Nombre: "+ cartas.nombreCarta);
         txtAtaque.setText("Ataque: "+ String.valueOf(cartas.ptosAtaque));
-        txtDefensa.setText("Defensa: "+ String.valueOf(cartas.idDuelista));
+        txtDefensa.setText("Defensa: "+ String.valueOf(cartas.ptosDefensa));
+        Picasso.get().load(cartas.imagen).into(foto);
 
     }
 

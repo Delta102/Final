@@ -11,13 +11,14 @@ import com.upn.Peralta.Rodriguez.dao.DuelistaDao;
 import com.upn.Peralta.Rodriguez.entities.Carta;
 import com.upn.Peralta.Rodriguez.entities.Duelista;
 
-@Database(entities = {Duelista.class, Carta.class}, version = 1)
+@Database(entities = {Duelista.class, Carta.class}, version = 11)
 public abstract class ConfigDB extends RoomDatabase {
     public abstract DuelistaDao duelistaDao();
 
     public static ConfigDB getInstance(Context context){
         return Room.databaseBuilder(context, ConfigDB.class, "AppDataBase")
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build();
     }
 }

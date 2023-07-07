@@ -1,5 +1,6 @@
 package com.upn.Peralta.Rodriguez.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.upn.Peralta.Rodriguez.CartaDetalleActivity;
 import com.upn.Peralta.Rodriguez.CreateCartaActivity;
 import com.upn.Peralta.Rodriguez.MainActivity;
+import com.upn.Peralta.Rodriguez.MapsActivity;
 import com.upn.Peralta.Rodriguez.MostrarDuelistasActivity;
 import com.upn.Peralta.Rodriguez.R;
 import com.upn.Peralta.Rodriguez.database.ConfigDB;
@@ -53,11 +55,14 @@ public class DuelistaAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint(
+            "RecyclerView") int position) {
         TextView tvNombre = holder.itemView.findViewById(R.id.txtShowDuelistName);
         Button btnCreateCart = holder.itemView.findViewById(R.id.btnCreateCarta);
         Button btnShowCart = holder.itemView.findViewById(R.id.btnVerCartas);
+        Button btnMapa = holder.itemView.findViewById(R.id.btnMapa);
         tvNombre.setText(datos.get(position).nombre);
+        int idDuel = datos.get(position).id;
 
         btnCreateCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +77,16 @@ public class DuelistaAdapter extends RecyclerView.Adapter{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), CartaDetalleActivity.class);
-                intent.putExtra("idDuelista", datos.get(position));
+                intent.putExtra("idDuelista", idDuel);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
+
+        btnMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(), MapsActivity.class);
+                intent.putExtra("idDuelista", idDuel);
                 holder.itemView.getContext().startActivity(intent);
             }
         });

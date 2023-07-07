@@ -9,14 +9,20 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface DuelistaService {
     @GET("Duelista")
     Call<List<Duelista>> getAllDuelists();
+
     @POST("Duelista")
     Call<Void> createDuelist(@Body Duelista duelista);
+
+    @DELETE("Duelista")
+    Call<Void> deleteDuelist();
 
     @POST("Carta")
     Call<Void> createCart(@Body Carta carta);

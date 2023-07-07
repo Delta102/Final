@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.upn.Peralta.Rodriguez.database.ConfigDB;
 import com.upn.Peralta.Rodriguez.entities.Carta;
 import com.upn.Peralta.Rodriguez.services.DuelistaService;
 
@@ -149,24 +150,9 @@ public class CreateCartaActivity extends AppCompatActivity {
         carta.longitud = longitud;
         carta.idDuelista = idDuelista;
 
-
-
-        Call<Void> call = servicio.createCart(carta);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.i("MAIN_APP", "Se creó");
-                    Intent intent = new Intent(CreateCartaActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.i("MAIN_APP", "No sirve");
-            }
-        });
+        ConfigDB db = ConfigDB.getInstance(CreateCartaActivity.this);
+        db.duelistaDao().createCart(carta);
+        Log.i("MAIN_APP", "CARTA CREADA");
     }
 
     String convertirBitmapB64(Bitmap bitmap) {

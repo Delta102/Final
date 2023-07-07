@@ -22,6 +22,70 @@ public class Carta implements Parcelable {
     public Carta() {
     }
 
+    public int getIdCarta() {
+        return idCarta;
+    }
+
+    public void setIdCarta(int idCarta) {
+        this.idCarta = idCarta;
+    }
+
+    public String getNombreCarta() {
+        return nombreCarta;
+    }
+
+    public void setNombreCarta(String nombreCarta) {
+        this.nombreCarta = nombreCarta;
+    }
+
+    public int getPtosAtaque() {
+        return ptosAtaque;
+    }
+
+    public void setPtosAtaque(int ptosAtaque) {
+        this.ptosAtaque = ptosAtaque;
+    }
+
+    public int getPtosDefensa() {
+        return ptosDefensa;
+    }
+
+    public void setPtosDefensa(int ptosDefensa) {
+        this.ptosDefensa = ptosDefensa;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    public int getIdDuelista() {
+        return idDuelista;
+    }
+
+    public void setIdDuelista(int idDuelista) {
+        this.idDuelista = idDuelista;
+    }
+
     public Carta(int idCarta, String nombreCarta, int ptosAtaque, int ptosDefensa, String imagen,
                  double latitud, double longitud, int idDuelista) {
         this.idCarta = idCarta;

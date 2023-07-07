@@ -43,64 +43,14 @@ public class CartaDetalleActivity extends AppCompatActivity {
 
         idDuelista = getIntent().getIntExtra("idDuelista", -1);
 
-        Log.i("MAIN_APP", "id "+ idDuelista);
+        Log.i("MAIN_APP", "id carta "+ idDuelista);
 
-        if (hayConexionInternet()) {
-            // Si hay conexión a internet, realizar sincronización de datos
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://63023858c6dda4f287b57c96.mockapi.io/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            DuelistaService service = retrofit.create(DuelistaService.class);
-            Call<List<Carta>> call = service.getAllCarts();
-
-            sincronizarDatos(call);
-        } else {
-            // Si no hay conexión a internet, obtener los datos locales
-            obtenerDatosLocales();
-        }
+        mostrarCartas();
     }
 
-    private void sincronizarDatos(Call<List<Carta>> call) {
-        call.enqueue(new Callback<List<Carta>>() {
-            @Override
-            public void onResponse(Call<List<Carta>> call, Response<List<Carta>> response) {
-                if (response.isSuccessful()) {
-                    List<Carta> cartas = response.body();
-                    if (cartas != null) {
-                        // Guardar los nuevos datos en la base de datos local
-                        ConfigDB db = ConfigDB.getInstance(CartaDetalleActivity.this);
-                        db.duelistaDao().deleteAllCarts();
-                        for (Carta carta : cartas) {
-                            db.duelistaDao().createCart(carta);
-                        }
-                        mostrarCartas(cartas);
-                    } else {
-                        Log.e("CARTA_DETALLE", "La respuesta no contiene datos");
-                    }
-                } else {
-                    Log.e("CARTA_DETALLE", "Error en la respuesta: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Carta>> call, Throwable t) {
-                Log.e("CARTA_DETALLE", "Error en la solicitud de sincronización: " + t.getMessage());
-                // En caso de error, obtener los datos locales
-                obtenerDatosLocales();
-            }
-        });
-    }
-
-    private void obtenerDatosLocales() {
+    private void mostrarCartas() {
         ConfigDB db = ConfigDB.getInstance(CartaDetalleActivity.this);
-        List<Carta> cartas = db.duelistaDao().getCartasByDuelistaId(idDuelista);
-        mostrarCartas(cartas);
-    }
-
-    private void mostrarCartas(List<Carta> cartas) {
-        this.cartas = cartas;
+        cartas = db.duelistaDao().getCartasByDuelistaId(idDuelista);
         cartaAdapter = new CartaAdapter(cartas);
         rvCartas.setAdapter(cartaAdapter);
     }
